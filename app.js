@@ -12,6 +12,12 @@ const searchSongs = async () => {
     }
 }
 
+document.getElementById('search-field').addEventListener('keypress', function (event) {
+    if (event.key == 'Enter') {
+        document.getElementById('search-button').click();
+    }
+})
+
 const displaySongs = songs => {
     const songContainer = document.getElementById('song-container');
     songContainer.innerHTML = '';
