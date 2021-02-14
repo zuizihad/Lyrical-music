@@ -1,5 +1,7 @@
 const searchSongs = async () => {
     try {
+
+        toggleSpinner();
         const searchText = document.getElementById('search-field').value;
         const url = `https://api.lyrics.ovh/suggest/${searchText}`
         const res = await fetch(url);
@@ -20,8 +22,9 @@ const displaySongs = songs => {
                     <div class="col-md-9">
                         <h3 class="lyrics-name">${song.title}</h3>
                         <p class="author lead">Album by <span>${song.artist.name}</span></p>
+                       
                         <audio controls>
-                            <source src="${song.preview}" type="audio/ogg">
+                            <source src="${song.preview}" type="audio/mpeg">
                         </audio>
                     </div>
                     <div class="col-md-3 text-md-right text-center">
@@ -29,6 +32,7 @@ const displaySongs = songs => {
                     </div>
         `
         songContainer.appendChild(songDiv);
+        toggleSpinner();
     });
 }
 
@@ -51,4 +55,11 @@ const displayLyric = (lyrics) => {
 const displayError = (error) => {
     const errorMsg = document.getElementById('error-msg');
     errorMsg.innerText = error;
+}
+
+const toggleSpinner = () => {
+    const spinner = document.getElementById('loading-spinner');
+    const songs = document.getElementById('song-container');
+    spinner.classList.toggle('d-none');
+    songs.classList.toggle('d-none');
 }
